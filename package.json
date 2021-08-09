@@ -7,18 +7,19 @@
     "build": "npx tsc",
     "lint": "eslint src/**/*.ts",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
-    "test": "npm run build && npm run jasmine",
     "jasmine": "jasmine",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "tsc": "tsc",
-    "start": "tsc && node dist/src/server.js",
-    "migrations": "db-migrate"
+    "start": "cross-env ENV=dev tsc && node dist/src/server.js",
+    "migrations": "db-migrate",
+    "test": "db-migrate up -e test && cross-env ENV=test npm run build && npm run jasmine && db-migrate down -e test"
   },
   "author": "Udacity",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "cross-env": "^7.0.3",
     "db-migrate": "^0.11.12",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^8.2.0",

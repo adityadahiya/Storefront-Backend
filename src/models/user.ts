@@ -1,3 +1,4 @@
+
 // @ts-ignore
 import Client from '../database';
 import bcrypt from 'bcrypt';
@@ -99,6 +100,7 @@ export class UserStore {
   }
 
   async authenticate(username: string, password: string): Promise<User | null> {
+    //@ts-ignore
     const conn = await Client.connect();
     const sql = 'SELECT password_digest FROM users WHERE username=($1)';
 
