@@ -33,6 +33,9 @@ const create = async (req: Request, res: Response) => {
 };
 
 const authenticate = async (req: Request, res: Response) => {
+  if (!req.body.username || !req.body.password) {
+    res.status(401).send('Error: Username or Password missing')
+  }
   const user: User = {
     username: req.body.username,
     password: req.body.password
@@ -43,7 +46,7 @@ const authenticate = async (req: Request, res: Response) => {
     res.json(token);
   } catch (error) {
     res.status(401);
-    res.json({ error });
+    res.json(error.toString());
   }
 };
 

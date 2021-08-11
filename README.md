@@ -48,7 +48,8 @@ GRANT ALL PRIVILEGES ON DATABASE store_front_test TO store_manager;
 
  To run included tests:
 
-1. Run command [npm run test].
+1. Start the server using [npm run start].
+1. In a separate terminal run command [npm run test].
 
-
-
+## Running Ports
+After start up, the server will start on port 3000 and the database on port 5432

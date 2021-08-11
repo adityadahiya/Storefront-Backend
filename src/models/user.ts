@@ -99,14 +99,15 @@ export class UserStore {
     }
   }
 
-  async authenticate(username: string, password: string): Promise<User | null> {
+  async authenticate(username: string, password: string): Promise<User> {
     //@ts-ignore
     const conn = await Client.connect();
     const sql = 'SELECT password_digest FROM users WHERE username=($1)';
 
     const result = await conn.query(sql, [username]);
-
-    if (result.rows.length) {
+    if (!result.rows.length) {
+      throw new Error('Username not found');
+    }
       const user = result.rows[0];
 
       if (
@@ -116,9 +117,8 @@ export class UserStore {
         )
       ) {
         return user;
+      } else {
+        throw new Error('Invalid username or password');
       }
-    }
-
-    return null;
   }
 }

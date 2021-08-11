@@ -14,19 +14,17 @@ describe("User MODEL TESTS", () => {
     userId = userObj.id!;
     done();
   });
-describe("User Model create test", () => {
+
   it("should create new user", async () => {
     const userObj = await store.create(user);
     expect(userObj.id).toBeTruthy();
   });
-});
-describe("User Model index test", () => {
+
   it("should return all users", async () => {
     const users = await store.index();
     expect(users?.length).toBeGreaterThan(0);
   });
-});
-describe("User Model show test", () => {
+
   it("should return user of given ID", async () => {
     const userObj = await store.show(userId.toString());
     expect(userObj.id).toEqual(userId);
@@ -34,12 +32,10 @@ describe("User Model show test", () => {
     expect(userObj.lastname).toEqual(user.lastname);
     expect(userObj.username).toEqual(user.username);
   });
-});
-describe("User Model delete test", () => {
+
   it("should delete user", async () => {
     await store.delete(userId.toString());
     const userObj = await store.show(userId.toString());
     expect(userObj).toBeFalsy();
   });
-});
 });

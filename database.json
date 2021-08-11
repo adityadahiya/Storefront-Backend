@@ -2,15 +2,15 @@
     "dev":{
         "driver": "pg",
         "host":"127.0.0.1",
-        "database":"store_front",
-        "user":"store_manager",
-        "password":"password"
+        "database": {"ENV":"POSTGRES_DB"},
+        "user": {"ENV":"POSTGRES_USER"},
+        "password": {"ENV":"POSTGRES_PASSWORD"}
     },
     "test":{
         "driver": "pg",
         "host":"127.0.0.1",
-        "database":"store_front_test",
-        "user":"store_manager",
-        "password":"password"
+        "database": {"ENV":"POSTGRES_TEST_DB"},
+        "user": {"ENV":"POSTGRES_USER"},
+        "password": {"ENV":"POSTGRES_PASSWORD"}
     }
 }
