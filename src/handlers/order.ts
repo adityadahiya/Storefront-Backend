@@ -24,8 +24,7 @@ const create = async (req: Request, res: Response) => {
     const newOrder = await store.create(order);
     res.json(newOrder);
   } catch (err) {
-    res.status(400);
-    res.json(err);
+    res.status(400).json(err.toString());
   }
 };
 
@@ -43,8 +42,7 @@ const addProduct = async (_req: Request, res: Response) => {
     const addedProduct = await store.addProduct(quantity, orderId, productId);
     res.json(addedProduct);
   } catch (err) {
-    res.status(400);
-    res.json(err);
+    res.status(400).json(err.toString());
   }
 };
 
@@ -56,8 +54,7 @@ const removeProduct = async (_req: Request, res: Response) => {
     const removedProduct = await store.removeProduct(orderId, productId);
     res.json(removedProduct);
   } catch (err) {
-    res.status(400);
-    res.json(err);
+    res.status(400).json(err.toString());
   }
 };
 

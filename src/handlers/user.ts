@@ -27,8 +27,7 @@ const create = async (req: Request, res: Response) => {
     newUser.token = token;
     res.json(newUser);
   } catch (err) {
-    res.status(400);
-    res.json(err + user);
+    res.status(400).json(err.toString());
   }
 };
 
@@ -45,8 +44,7 @@ const authenticate = async (req: Request, res: Response) => {
     var token = jwt.sign({ user: u }, process.env.TOKEN_SECRET!);
     res.json(token);
   } catch (error) {
-    res.status(401);
-    res.json(error.toString());
+    res.status(401).json(error.toString());
   }
 };
 
