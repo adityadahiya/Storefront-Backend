@@ -40,6 +40,22 @@ export class OrderStore {
     }
   }
 
+  async getOrdersByUserId(userId: string): Promise<Order[]> {
+    try {
+      const sql = 'SELECT * FROM orders WHERE userId=($1)';
+      // @ts-ignore
+      const conn = await Client.connect();
+
+      const result = await conn.query(sql, [userId]);
+
+      conn.release();
+
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Could not find order. Error: ${err}`);
+    }
+  }
+
   async create(b: Order): Promise<Order> {
     try {
       const sql =

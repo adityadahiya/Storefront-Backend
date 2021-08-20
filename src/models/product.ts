@@ -6,6 +6,7 @@ export type Product = {
   name: string;
   price: number;
   category: string;
+  imageURL?: string;
 };
 
 export class ProductStore {
@@ -41,14 +42,30 @@ export class ProductStore {
     }
   }
 
-  async create(b: Product): Promise<Product> {
+  async getProductsByOrderId(orderId: string): Promise<Product[]> {
     try {
-      const sql =
-        'INSERT INTO products (name, price, category) VALUES($1, $2, $3) RETURNING *';
+      const sql = 'SELECT * FROM products WHERE id IN (SELECT product_id FROM order_products WHERE order_id=($1))';
       // @ts-ignore
       const conn = await Client.connect();
 
-      const result = await conn.query(sql, [b.name, b.price, b.category]);
+      const result = await conn.query(sql, [orderId]);
+
+      conn.release();
+
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Could not find any product. Error: ${err}`);
+    }
+  }
+
+  async create(b: Product): Promise<Product> {
+    try {
+      const sql =
+        'INSERT INTO products (name, price, category, imageURL) VALUES($1, $2, $3, $4) RETURNING *';
+      // @ts-ignore
+      const conn = await Client.connect();
+
+      const result = await conn.query(sql, [b.name, b.price, b.category, b.imageURL]);
 
       const book = result.rows[0];
 

@@ -7,7 +7,8 @@ let productId: number;
 const product: Product = {
     name: 'Adidas Neo',
     price: 3999,
-    category: 'Footwear'
+    category: 'Footwear',
+    imageURL: 'odiwhihdiuwehdwdiu'
   }
 
 describe("Product endpoint tests", () => {

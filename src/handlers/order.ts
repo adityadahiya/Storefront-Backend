@@ -14,6 +14,12 @@ const show = async (req: Request, res: Response) => {
   res.json(order);
 };
 
+const getOrdersByUserId = async (req: Request, res: Response) => {
+  const orders = await store.getOrdersByUserId(req.params.id);
+  res.json(orders);
+};
+
+
 const create = async (req: Request, res: Response) => {
   try {
     const order: Order = {
@@ -61,6 +67,7 @@ const removeProduct = async (_req: Request, res: Response) => {
 const orderRoutes = (app: express.Application) => {
   app.get('/orders', verifyAuthToken, index);
   app.get('/orders/:id', verifyAuthToken, show);
+  app.get('/orders/user/:id', verifyAuthToken, getOrdersByUserId);
   app.post('/orders', verifyAuthToken, create);
   app.delete('/orders/:id', verifyAuthToken, destroy);
   app.post('/orders/:id/products', verifyAuthToken, addProduct);
